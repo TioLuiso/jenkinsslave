@@ -1,0 +1,1 @@
+Image to run Jenkins slave that has docker client installed
