@@ -20,8 +20,11 @@ RUN apt-get update
 
 RUN apt-get install -y docker-ce
 
-ENV HOME /home/jenkins
 RUN groupadd -g 10000 jenkins
+
+
+ENV HOME /home/jenkins
+
 RUN useradd -c "Jenkins user" -d $HOME -u 10000 -g 10000 -m jenkins
 
 
@@ -32,6 +35,7 @@ RUN curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-c
   && chmod 755 /usr/share/jenkins \
   && chmod 644 /usr/share/jenkins/slave.jar
 
+RUN usermod -aG docker jenkins
 USER jenkins
 ENV AGENT_WORKDIR=${AGENT_WORKDIR}
 RUN mkdir /home/jenkins/.jenkins && mkdir -p ${AGENT_WORKDIR}
